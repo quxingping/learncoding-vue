@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" placeholder="姓" v-model='first'>
+        <input type="text" placeholder="名" v-model='last'>
+        <input type="text" placeholder="姓名" v-model='all'> 
+           
+        <input type="text" placeholder="姓名" v-model='all1'>   <br> 
+        <input type="text" placeholder="shuangxiang" v-model='all2'>    
+        <p>{{message.toUpperCase()}}</p>
+        <button @click='test'>button</button>
+    </div>
+    
+
+    <script >
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'hello',
+                first:'ni',
+                last:'hao',
+                all1:'ni hao'
+            },
+            computed:{
+                all(){
+                    console.log(this.first)
+                    return  this.first+"  "+this.last
+                },
+                all2:{
+                    get(){
+                        return this.first+"  "+this.last
+                    },
+                    set(value){
+                        const names=value.split(' ')
+                        console.log(names)
+                        this.first = names[0]
+                        this.last = names[2]
+                    }
+                }
+            },
+            methods:{
+                test(){
+                    alert(this)
+                }
+                
+            },
+            watch:{
+                first:function(value){
+                    this.all1 = value + " "+this.last
+                }
+            },
+        })
+        app.$watch('last',function(value){
+            this.all1 = this.first + " " + value 
+        })
+    </script>
+</body>
+</html>

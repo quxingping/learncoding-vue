@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<!-- 组件的使用-->
+
+
+<body>
+    <div id ="app"> 
+    <!-- <cpn1></cpn1> -->
+    <cpn2></cpn2>
+    </div>
+    <script>
+     //创建Vue实例,得到 ViewModel
+// 创建组件 
+    const cpn1 = Vue.extend({
+        template:`
+        <div>
+            <h2>我是模板1</h2>
+        </div>
+        `
+    })
+    //创建组件 并将组件1注册到组件2中
+    const cpn2 = Vue.extend({
+        template:`
+        <div>
+            <h2>我是模板2</h2>
+            <cpn1></cpn1>
+        </div>
+        `,
+        components:{
+            cpn1:cpn1
+        }
+       
+    })
+// 要想使用组件 需要在Vue中注册组件
+     var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components:{
+            cpn1:cpn1,
+            cpn2:cpn2,
+        }
+     });
+    </script>
+</body>
+
+</html>
