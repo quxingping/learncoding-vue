@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        条件渲染的指令
+            v-if
+            v-else
+            v-show
+        频换切换的指令使用v-show比较好，v-if是判断为false时会将元素从dom中删除
+     -->
+     <div id='app'>
+        <p v-if='ok'>v-if显示</p>
+        <p v-else>else不显示</p>
+
+        <p v-show='show'> v-show显示</p>
+        <p v-show='!show'> v-show不显示</p>
+        <button @click='change'>切换v-if</button>
+        <button @click='changeShow'>切换v-show</button>
+     </div>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                ok:true,
+                show:true
+            },
+            methods:{
+                change:function (){
+                    this.ok=!this.ok
+                },
+                changeShow:function (){
+                    this.show=!this.show
+                }
+            }
+        })
+    </script>
+</body>
+</html>

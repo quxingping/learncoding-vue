@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- v-for循环 
+    splice(index,1,newobj)可以对数组实现增删改
+
+    列表搜索
+    列表排序
+    -->
+    <div id="demo">
+        <input type="text" v-model='serch'>
+        <ul>
+            <li v-for='(person,index) in serchPersons' :key='index'>
+                {{index}}----{{person.name}}---{{person.age}}---<button @click="deletes(index)">删除</button>
+                ----<button @click='update(index)'>更新</button>
+            </li>
+        </ul>
+        <button @click='setOrder(1)'>年龄升序</button>
+        <button @click='setOrder(2)'>年龄降序</button>
+        <button @click='setOrder(0)'>原本顺序</button>
+    </div>
+    <script>
+        const demo = new Vue({
+            el:'#demo',
+            data:{
+                serch:'',
+                orderType:'',
+                persons:[
+                    {name:'小明',age:13},
+                    {name:'小红',age:12},
+                    {name:'小白',age:14},
+                    {name:'小黑',age:15},
+                    {name:'小蓝',age:16},
+                ]
+            },
+            methods:{
+                deletes:function (index){
+                    this.persons.splice(index,1)
+                },
+                update:function (index){
+                    this.persons[index].age=32
+                    this.persons.splice(index,0,{name:'新增',age:'18'})
+                },
+                setOrder:function(orderType){
+                    this.orderType = orderType
+                    console.log(this.orderType)
+                }
+            },
+            computed:{
+                serchPersons(){
+                    const {serch,persons,orderType} = this
+                    // 对数组进行过滤
+                    let p
+                    p = persons.filter(person => person.name.indexOf(serch)!==-1)
+                    //排序
+                    if(orderType!==0){
+                        p.sort(function(p1,p2){
+                            // 降序
+                            if(orderType==2){
+                                return p2.age - p1.age
+                            }else{
+                                // 升序
+                                return p1.age - p2.age
+                            }
+                            
+                        })
+                    }
+                    return p
+                }
+            }
+        })
+    </script>
+</body>
+</html>

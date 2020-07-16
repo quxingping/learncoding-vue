@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        阻止事件冒泡click.stop
+        取消事件默认行为click.prevent
+     -->
+    <div id="demo">
+        <button @click='test1'>test1</button>
+        <button @click='test2()'>test2</button>
+        <button @click='test3($event)'>test3</button>
+
+        <div style="width: 100px; height: 100px;background: red;" @click='out'>
+            <div style="width: 50px; height: 50px; background: black;" @click.stop='inner'></div>
+        </div>
+        <a href="http://www.baidu.com" @click.prevent='test4'>百度</a>
+    </div>
+
+    <script>
+        const demo = new Vue({
+            el:'#demo',
+            methods:{
+                test1:function(){
+                    alert(event)
+                },
+                test2:function(){
+                    alert(event)
+                },
+                test3:function(event){
+                    alert(event.target.innerHTML)
+                },
+                out:function(){
+                    alert('out')
+                },
+                inner:function(){
+                    alert('inner')
+                },
+                test4:function(){
+                    alert('a标签')
+                }
+            }
+        })
+    </script>
+</body>
+</html>
